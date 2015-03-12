@@ -243,6 +243,11 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		7855E0E1153FEF240059DD9A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7855E0DF153FEF240059DD9A /* Default.png */; };
+		8D59589B1AB16297009DD923 /* MainScene.ccbi in Resources */ = {isa = PBXBuildFile; fileRef = 8D59589A1AB16297009DD923 /* MainScene.ccbi */; };
+		8D59589E1AB162A8009DD923 /* ccbParticleSnow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D59589D1AB162A8009DD923 /* ccbParticleSnow.png */; };
+		8D5958A11AB163D0009DD923 /* HelloCocosBuilder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8D5958A01AB163D0009DD923 /* HelloCocosBuilder.cpp */; };
+		8D5958A31AB16695009DD923 /* CCBIFiles in Resources */ = {isa = PBXBuildFile; fileRef = 8D5958A21AB16695009DD923 /* CCBIFiles */; };
+		8D5958A51AB166B0009DD923 /* LoginResources in Resources */ = {isa = PBXBuildFile; fileRef = 8D5958A41AB166B0009DD923 /* LoginResources */; };
 		8D647FD91A8B7702002CD9E0 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D647FD81A8B7702002CD9E0 /* Default-568h@2x.png */; };
 		8D647FDB1A8B7714002CD9E0 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D647FDA1A8B7714002CD9E0 /* Default@2x.png */; };
 		8D647FE01A8B7729002CD9E0 /* Icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D647FDC1A8B7729002CD9E0 /* Icon-57.png */; };
@@ -770,6 +775,12 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		37C62C0718E156AE00D16FC4 /* ExtensionExport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtensionExport.h; sourceTree = "<group>"; };
 		7855E0DF153FEF240059DD9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
+		8D59589A1AB16297009DD923 /* MainScene.ccbi */ = {isa = PBXFileReference; lastKnownFileType = file; name = MainScene.ccbi; path = CCBIFiles/MainScene.ccbi; sourceTree = "<group>"; };
+		8D59589D1AB162A8009DD923 /* ccbParticleSnow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ccbParticleSnow.png; sourceTree = "<group>"; };
+		8D59589F1AB1632D009DD923 /* HelloCocosBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloCocosBuilder.h; sourceTree = "<group>"; };
+		8D5958A01AB163D0009DD923 /* HelloCocosBuilder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloCocosBuilder.cpp; sourceTree = "<group>"; };
+		8D5958A21AB16695009DD923 /* CCBIFiles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CCBIFiles; sourceTree = "<group>"; };
+		8D5958A41AB166B0009DD923 /* LoginResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = LoginResources; sourceTree = "<group>"; };
 		8D647FD81A8B7702002CD9E0 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		8D647FDA1A8B7714002CD9E0 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		8D647FDC1A8B7729002CD9E0 /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-57.png"; sourceTree = SOURCE_ROOT; };
@@ -1297,6 +1308,8 @@
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
+				8D59589F1AB1632D009DD923 /* HelloCocosBuilder.h */,
+				8D5958A01AB163D0009DD923 /* HelloCocosBuilder.cpp */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -1908,6 +1921,10 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				8D5958A41AB166B0009DD923 /* LoginResources */,
+				8D5958A21AB16695009DD923 /* CCBIFiles */,
+				8D59589D1AB162A8009DD923 /* ccbParticleSnow.png */,
+				8D59589A1AB16297009DD923 /* MainScene.ccbi */,
 				8D647FDC1A8B7729002CD9E0 /* Icon-57.png */,
 				8D647FDD1A8B7729002CD9E0 /* Icon-72.png */,
 				8D647FDE1A8B7729002CD9E0 /* Icon-114.png */,
@@ -2003,9 +2020,13 @@
 				7855E0E1153FEF240059DD9A /* Default.png in Resources */,
 				8D647FD91A8B7702002CD9E0 /* Default-568h@2x.png in Resources */,
 				8D647FE01A8B7729002CD9E0 /* Icon-57.png in Resources */,
+				8D59589B1AB16297009DD923 /* MainScene.ccbi in Resources */,
+				8D59589E1AB162A8009DD923 /* ccbParticleSnow.png in Resources */,
 				8D647FE11A8B7729002CD9E0 /* Icon-72.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
+				8D5958A31AB16695009DD923 /* CCBIFiles in Resources */,
 				8D647FE21A8B7729002CD9E0 /* Icon-114.png in Resources */,
+				8D5958A51AB166B0009DD923 /* LoginResources in Resources */,
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
 				8D647FE31A8B7729002CD9E0 /* Icon-144.png in Resources */,
 				1AFAF8BE16D35E4900DB1158 /* HelloWorld.png in Resources */,
@@ -2189,6 +2210,7 @@
 				15A3DA551682F826002FB0C5 /* CCEditBox.cpp in Sources */,
 				15C0B577196D412F007F909D /* UIScrollView.cpp in Sources */,
 				15A3DA571682F826002FB0C5 /* CCEditBoxImplIOS.mm in Sources */,
+				8D5958A11AB163D0009DD923 /* HelloCocosBuilder.cpp in Sources */,
 				15A3DA591682F826002FB0C5 /* CCScrollView.cpp in Sources */,
 				15A3DA5A1682F826002FB0C5 /* CCSorting.cpp in Sources */,
 				15A3DA5B1682F826002FB0C5 /* CCTableView.cpp in Sources */,

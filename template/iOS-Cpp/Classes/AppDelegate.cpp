@@ -6,7 +6,8 @@
  */
 
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+//#include "HelloWorldScene.h"
+#include "HelloCocosBuilder.h"
 
 USING_NS_CC;
 
@@ -32,7 +33,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    CCScene *pScene = HelloWorld::scene();
+    //CCScene *pScene = HelloWorld::scene();
+    CCScene *pScene = HelloCocosBuilder::scene();
 
     // run
     pDirector->runWithScene(pScene);
