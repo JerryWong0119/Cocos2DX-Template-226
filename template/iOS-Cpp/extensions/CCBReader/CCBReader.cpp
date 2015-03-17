@@ -242,7 +242,7 @@ CCNode* CCBReader::readNodeGraphFromFile(const char *pCCBFileName, CCObject *pOw
 
     std::string strPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(strCCBFileName.c_str());
     unsigned long size = 0;
-
+    CCLOG("读取CCBI文件：[ %s ]", strPath.c_str());
     unsigned char * pBytes = CCFileUtils::sharedFileUtils()->getFileData(strPath.c_str(), "rb", &size);
     CCData *data = new CCData(pBytes, size);
     CC_SAFE_DELETE_ARRAY(pBytes);
@@ -365,6 +365,12 @@ bool CCBReader::readStringCache() {
     for(int i = 0; i < numStrings; i++) {
         this->mStringCache.push_back(this->readUTF8());
     }
+    
+    long scs = this->mStringCache.size();
+    CCLOG("  -> String Cache: ");
+    for (int i = 0; i < scs; i++){
+        CCLOG("    -> %d : %s", i, this->mStringCache[i].c_str());
+    }
 
     return true;
 }
@@ -372,9 +378,12 @@ bool CCBReader::readStringCache() {
 bool CCBReader::readHeader()
 {
     /* If no bytes loaded, don't crash about it. */
+    
     if(this->mBytes == NULL) {
         return false;
     }
+    
+    CCLOG("  -> Header: ");
 
     /* Read magic bytes */
     int magicBytes = *((int*)(this->mBytes + this->mCurrentByte));
@@ -383,18 +392,25 @@ bool CCBReader::readHeader()
     if(CC_SWAP_INT32_LITTLE_TO_HOST(magicBytes) != 'ccbi') {
         return false; 
     }
+    
+    CCLOG("    -> MagicBytes: ccbi");
 
     /* Read version. */
     int version = this->readInt(false);
     if(version != kCCBVersion) {
+        // 制作ccbi文件时使用的CCBReader与读取时使用的CCBReader版本不一致
         CCLog("WARNING! Incompatible ccbi file version (file: %d reader: %d)", version, kCCBVersion);
         return false;
     }
+    
+    CCLOG("    -> CCBReader Version: %d", version);
 
     // Read JS check
+    // 这个值在Cocos2dx开发中貌似没用，
     jsControlled = this->readBool();
     mActionManager->jsControlled = jsControlled;
-
+    CCLOG("    -> jsControlled: false");
+    CCLOG("  -> Read Header ... [ DONE ]");
     return true;
 }
 
@@ -530,30 +546,53 @@ float CCBReader::readFloat() {
 
 std::string CCBReader::readCachedString() {
     int n = this->readInt(false);
+    // CCLOG("StringCache: [n: %d, value: %s]", n, this->mStringCache[n].c_str());
     return this->mStringCache[n];
 }
 
 CCNode * CCBReader::readNodeGraph(CCNode * pParent) {
     /* Read class name. */
     std::string className = this->readCachedString();
-
+    CCLOG("Read Node Graph: %s", className.c_str());
     std::string jsControlledName;
     
     if(jsControlled) {
         jsControlledName = this->readCachedString();
     }
     
+    CCLOG("  -> jsControlled: false");
+    
     // Read assignment type and name
     int memberVarAssignmentType = this->readInt(false);
+    CCLOG("  -> Member variable assignment type: %d", memberVarAssignmentType);
+    
     std::string memberVarAssignmentName;
     if(memberVarAssignmentType != kCCBTargetTypeNone) {
         memberVarAssignmentName = this->readCachedString();
     }
     
+    CCLOG("  -> Member variable Assignment Name: %s", memberVarAssignmentName.c_str());
+    
+    // 从Library中对应的实例化各种对象
     CCNodeLoader *ccNodeLoader = this->mCCNodeLoaderLibrary->getCCNodeLoader(className.c_str());
      
     if (! ccNodeLoader)
     {
+        //        ("CCNode", CCNodeLoader::loader());
+        //        ("CCLayer", CCLayerLoader::loader());
+        //        ("CCLayerColor", CCLayerColorLoader::loader());
+        //        ("CCLayerGradient", CCLayerGradientLoader::loader());
+        //        ("CCSprite", CCSpriteLoader::loader());
+        //        ("CCLabelBMFont", CCLabelBMFontLoader::loader());
+        //        ("CCLabelTTF", CCLabelTTFLoader::loader());
+        //        ("CCScale9Sprite", CCScale9SpriteLoader::loader());
+        //        ("CCScrollView", CCScrollViewLoader::loader());
+        //        ("CCBFile", CCBFileLoader::loader());
+        //        ("CCMenu", CCMenuLoader::loader());
+        //        ("CCMenuItemImage", CCMenuItemImageLoader::loader());
+        //        ("CCControlButton", CCControlButtonLoader::loader());
+        //        ("CCParticleSystemQuad", CCParticleSystemQuadLoader::loader());
+        // 如果运行到此处，问题应该出现在你没有将自定义类注册到库中
         CCLog("no corresponding node loader for %s", className.c_str());
         return NULL;
     }
@@ -914,7 +953,7 @@ CCNode * CCBReader::readNodeGraph() {
 bool CCBReader::readSequences()
 {
     CCArray *sequences = mActionManager->getSequences();
-    
+    CCLOG("  -> Sequences:");
     int numSeqs = readInt(false);
     
     for (int i = 0; i < numSeqs; i++)
@@ -922,18 +961,26 @@ bool CCBReader::readSequences()
         CCBSequence *seq = new CCBSequence();
         seq->autorelease();
         
+        CCLOG("    -> %d", i);
         seq->setDuration(readFloat());
+        CCLOG("      -> Duration: %f", seq->getDuration());
         seq->setName(readCachedString().c_str());
+        CCLOG("      -> Name: %s", seq->getName());
         seq->setSequenceId(readInt(false));
+        CCLOG("      -> Sequence Id: %d", seq->getSequenceId());
         seq->setChainedSequenceId(readInt(true));
+        CCLOG("      -> Chained Sequence Id: %d", seq->getChainedSequenceId());
         
         if(!readCallbackKeyframesForSeq(seq)) return false;
+        CCLOG("      -> Read Callback Key Frames for sequence: true");
         if(!readSoundKeyframesForSeq(seq)) return false;
+        CCLOG("      -> Read Sound Key Frames for Sequence: true");
         
         sequences->addObject(seq);
     }
     
     mActionManager->setAutoPlaySequenceId(readInt(true));
+    CCLOG("    -> Set auto play sequence id: %d", mActionManager->getAutoPlaySequenceId());
     return true;
 }
 
