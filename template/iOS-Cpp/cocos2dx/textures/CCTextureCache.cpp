@@ -394,7 +394,7 @@ void CCTextureCache::addImageAsyncCallBack(float dt)
 CCTexture2D * CCTextureCache::addImage(const char * path)
 {
     CCAssert(path != NULL, "TextureCache: fileimage MUST not be NULL");
-
+    // CCLOG("    -> Texture2D: %s", path);
     CCTexture2D * texture = NULL;
     CCImage* pImage = NULL;
     // Split up directory and filename

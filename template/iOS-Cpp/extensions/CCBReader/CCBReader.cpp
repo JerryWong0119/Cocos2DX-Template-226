@@ -369,7 +369,7 @@ bool CCBReader::readStringCache() {
     long scs = this->mStringCache.size();
     CCLOG("  -> String Cache: ");
     for (int i = 0; i < scs; i++){
-        CCLOG("    -> %d : %s", i, this->mStringCache[i].c_str());
+        CCLOG("    -> %02d : %s", i, this->mStringCache[i].c_str());
     }
 
     return true;
@@ -410,7 +410,7 @@ bool CCBReader::readHeader()
     jsControlled = this->readBool();
     mActionManager->jsControlled = jsControlled;
     CCLOG("    -> jsControlled: false");
-    CCLOG("  -> Read Header ... [ DONE ]");
+    //CCLOG("  -> Read Header ... [ DONE ]");
     return true;
 }
 
